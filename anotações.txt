@@ -1,0 +1,20 @@
+
+
+File System Rotting 
+NEXTJS
+Sistema de rotas por nome de arquivos cada arquivo se torna uma rota na url
+
+
+Caso exista algum componente que seja utilizado entre as paginas utilizamos o _app
+Ele ficara em volta de todas as paginas para que consiga repetir algum componente dentro da pagina 
+
+O next sempre ecssa o App e no lugar do component que existe dentro do app ele renderiza a pagina desejada 
+
+O GRANDE PONTO DO APP
+
+O App sempre e recarregado quando o usuario troca de pagina 
+Isso se torna um problkema quando queremos por exemplo carregar uma fonte pois so podemos carrega-la uma unica vez 
+
+Para resolver isso utilizamos o file _document 
+
+
