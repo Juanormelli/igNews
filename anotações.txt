@@ -18,3 +18,20 @@ Isso se torna um problkema quando queremos por exemplo carregar uma fonte pois s
 Para resolver isso utilizamos o file _document 
 
 
+Podemos realizar a chamada de uma API no Server Side do Next e para isso basta realizar a chamada por meio de uma const que recebe uma função
+
+
+export const getServerSideProps : GetServerSideProps = async()=>{
+  return{
+    props:{
+      nome:"Juan"
+    }
+  }
+
+}
+
+
+Setando o tipo da variavel como GetServerSideProps
+
+E recebemos essas propriedsades dentro do componente atraves das propriedades dele
+
