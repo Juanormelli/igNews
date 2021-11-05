@@ -35,3 +35,6 @@ Setando o tipo da variavel como GetServerSideProps
 
 E recebemos essas propriedsades dentro do componente atraves das propriedades dele
 
+Dia 05/11
+
+
