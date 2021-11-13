@@ -38,3 +38,27 @@ E recebemos essas propriedsades dentro do componente atraves das propriedades de
 Dia 05/11
 
 
+FS routes
+
+
+Api routes
+
+
+
+Auth Methods
+
+JWT 
+Salvar no Storage e trabalhar com  refresh token 
+
+
+Next Auth
+Sistema simples e precisa de login social ou nao queremos armazenar credenciais 
+Independente de Back End
+
+Auth as a service 
+Cognito
+Auth0
+
+
+
+Dinamic Routes 
