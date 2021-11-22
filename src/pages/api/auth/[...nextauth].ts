@@ -4,7 +4,7 @@ import NextAuth from "next-auth"
 
 
 import Providers from "next-auth/providers"
-import { SigninButton } from "../../../components/SigninButton"
+
 
 import {fauna } from "../../../services/fauna"
 
@@ -34,8 +34,8 @@ export default NextAuth({
               )
             ),
             q.Create(
-              q.Collection('users',
-              {data:{email}})
+              q.Collection('users'),
+              {data:{email}}
             ),
             q.Get(
               q.Match(
