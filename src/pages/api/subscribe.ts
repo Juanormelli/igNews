@@ -19,24 +19,27 @@ export default async(req:NextApiRequest, res:NextApiResponse)=>
 
     if (req.method === "POST"){
         const session = await getSession({req})
-        console.log(session)
+       
+        
 
        
         const user = await fauna.query<User>(
             q.Get(
                 q.Match(
-                    q.Index('users_by_email'),
+                    q.Index('user_by_email'),
                     q.Casefold(session.user.email)
                 )
             )
         )
-
+        console.log(user)
+        
         let customerId= user.data.stripeCustomerId
-
+        
         if (!customerId){
             const stripeCustomer = await stripe.customers.create({
                 email: session.user.email
             })
+            
             
             await fauna.query(
                 q.Update(
@@ -49,6 +52,7 @@ export default async(req:NextApiRequest, res:NextApiResponse)=>
                 )
             )
             customerId = stripeCustomer.id
+            
         }
         
 
