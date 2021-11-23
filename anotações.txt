@@ -62,3 +62,9 @@ Auth0
 
 
 Dinamic Routes 
+
+
+
+
+WebHooks
+Quandfo queremos avisar sobre algum evento que esteja acontecendo em API de tereceiros
