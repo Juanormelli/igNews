@@ -68,3 +68,17 @@ Dinamic Routes
 
 WebHooks
 Quandfo queremos avisar sobre algum evento que esteja acontecendo em API de tereceiros
+
+
+
+JAM Stack 
+ Js API MARKUP
+
+
+ CMS 
+ Content management system 
+
+
+ Headless CMS (PA + API )
+
+ 
