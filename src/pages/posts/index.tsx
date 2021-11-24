@@ -1,6 +1,23 @@
+import { GetStaticProps } from "next"
 import Head from "next/head"
 import styles from "./styles.module.scss"
-export default function Posts(){
+import { getPrismicClient } from './../../services/prismic';
+import Prismic from "@prismicio/client"
+import { RichText} from "prismic-dom"
+
+
+type Posts={
+    slug :string;
+    title: string;
+    excerpt:string;
+    updateAt:string;
+}
+
+interface PostsProps{
+    posts:Posts[]
+}
+
+export default function Posts({posts}:PostsProps){
 
     return (
         <>
@@ -10,37 +27,56 @@ export default function Posts(){
 
             <main className={styles.container}>
                 <div className={styles.posts}>
-                    <a >
-                        <time>15/06/2000</time>
-                        <strong>Teste</strong>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id libero nisi. Pellentesque pharetra placerat massa at aliquam. Curabitur non pharetra nisi. Etiam massa lectus, auctor sed vestibulum efficitur, convallis pretium felis. Ut sed augue eget ex euismod laoreet quis a magna. Nullam et ornare mi. Vestibulum at porttitor tellus. Nam consequat, enim id pretium vestibulum, risus enim tincidunt massa, sit amet hendrerit lacus sapien vel magna.</p>
-                    </a>
-                    <a >
-                        <time>15/06/2000</time>
-                        <strong>Teste</strong>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id libero nisi. Pellentesque pharetra placerat massa at aliquam. Curabitur non pharetra nisi. Etiam massa lectus, auctor sed vestibulum efficitur, convallis pretium felis. Ut sed augue eget ex euismod laoreet quis a magna. Nullam et ornare mi. Vestibulum at porttitor tellus. Nam consequat, enim id pretium vestibulum, risus enim tincidunt massa, sit amet hendrerit lacus sapien vel magna.</p>
-                    </a>
-                    <a >
-                        <time>15/06/2000</time>
-                        <strong>Teste</strong>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id libero nisi. Pellentesque pharetra placerat massa at aliquam. Curabitur non pharetra nisi. Etiam massa lectus, auctor sed vestibulum efficitur, convallis pretium felis. Ut sed augue eget ex euismod laoreet quis a magna. Nullam et ornare mi. Vestibulum at porttitor tellus. Nam consequat, enim id pretium vestibulum, risus enim tincidunt massa, sit amet hendrerit lacus sapien vel magna.</p>
-                    </a>
-                    <a >
-                        <time>15/06/2000</time>
-                        <strong>Teste</strong>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id libero nisi. Pellentesque pharetra placerat massa at aliquam. Curabitur non pharetra nisi. Etiam massa lectus, auctor sed vestibulum efficitur, convallis pretium felis. Ut sed augue eget ex euismod laoreet quis a magna. Nullam et ornare mi. Vestibulum at porttitor tellus. Nam consequat, enim id pretium vestibulum, risus enim tincidunt massa, sit amet hendrerit lacus sapien vel magna.</p>
-                    </a>
-                    <a >
-                        <time>15/06/2000</time>
-                        <strong>Teste</strong>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id libero nisi. Pellentesque pharetra placerat massa at aliquam. Curabitur non pharetra nisi. Etiam massa lectus, auctor sed vestibulum efficitur, convallis pretium felis. Ut sed augue eget ex euismod laoreet quis a magna. Nullam et ornare mi. Vestibulum at porttitor tellus. Nam consequat, enim id pretium vestibulum, risus enim tincidunt massa, sit amet hendrerit lacus sapien vel magna.</p>
-                    </a>
+                    {posts.map(post => (
+                         <a key={post.slug} href="$" >
+                            <time>{post.updateAt}</time>
+                            <strong>{post.title}</strong>
+                            <p>{post.excerpt}</p>
+                        </a>
+                    ))}
                 </div>
             </main>
 
         </>
 
     )
+
+
+
+}
+
+
+
+export const getStaticProps: GetStaticProps= async ()=>{
+    const prismic= getPrismicClient();
+
+
+    const response = await prismic.query([
+            Prismic.predicates.at('document.type','post')
+        ],
+        {
+        
+            fetch:['post.title', 'post.content'],
+            pageSize: 100
+        }
+    )
+    const posts = response.results.map(post=>{
+        return {
+            slug :post.uid,
+            title: RichText.asText(post.data.title),
+            excerpt: post.data.content.find(content=>content.type==="paragraph")?.text??"",
+            updateAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR',{
+                day:'2-digit',
+                month:"long",
+                year:'numeric'
+            })
+
+        }
+    })
+
+    return {
+        props:{ posts}
+    }
 
 
 
