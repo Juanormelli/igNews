@@ -82,3 +82,36 @@ JAM Stack
  Headless CMS (PA + API )
 
  
+
+
+ Get satic props e get static paths possui alguns comportamentos na gera~ção de sites etsaticos 
+
+
+ Geração estatica formatos 
+
+ 
+ 
+1- Gerar as paginas estaticas durante a build
+ 
+ Carregar previamente as paginas no momento do build ou seja a pessoa que acessase a priemria vez nao teria que esperar nada 
+
+
+2- Gerar no momento em que acontece o priemrio acesso
+
+Geraação da pagina estatica no momento do priemiro acesso 
+
+
+Poiuca quantidade BUILD
+muita quantidade PRIMEIRO ACESSO
+
+Podemos mesclar as duas formas
+
+
+
+fallback
+
+True - Carrega no Browse, ruim para SO
+
+False - Erro 404, se o static nao foi gerado ainda 
+
+Blocking - Faz o carregamento pelo SSR 

@@ -22,7 +22,7 @@ export default function Posts({posts}:PostsProps){
     return (
         <>
             <Head>
-                <title>Posts</title>
+                <title>Posts | IgNews</title>
             </Head>
 
             <main className={styles.container}>

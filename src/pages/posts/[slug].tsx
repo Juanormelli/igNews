@@ -23,7 +23,7 @@ export default function Posts({post}: PostsProps){
     return(
         <>
             <Head>
-                <title>{post.title}</title>
+                <title>{post.title} | IgNews</title>
 
             </Head>
 
@@ -48,7 +48,7 @@ export const getServerSideProps:GetServerSideProps = async ({req, params }) => {
     const {slug} = params
    
 
-    if(!session.activeSubscription) {
+    if(!session?.activeSubscription) {
         return {
             redirect:{
                 destination:"/",
@@ -77,7 +77,8 @@ export const getServerSideProps:GetServerSideProps = async ({req, params }) => {
     }
 
     return {
-        props:{ post}
+        props:{ post},
+        redirect:60*60
     }
     
 }
